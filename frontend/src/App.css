@@ -4,10 +4,10 @@
   text-align: center;
   position: relative;
   overflow: hidden;
-  cursor: url('E:\Projects\Web\parkn.lol\frontend\public\cursor.cur'), auto; /* Ensure this path is correct */
+  cursor: url('/home/ubuntu/parkn.xyz/frontend/public/cursor.cur'), auto; /* Ensure this path is correct */
 }
 a {
-  cursor: url('E:\Projects\Web\parkn.lol\frontend\public\cursor.cur'), auto !important; /* Ensure links also use the custom cursor */
+  cursor: url('/home/ubuntu/parkn.xyz/frontend/public/cursor.cur'), auto !important; /* Ensure links also use the custom cursor */
 }
 
 .enter-screen {
@@ -32,7 +32,7 @@ a {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 1.7vmin); /* Adjusted text size to be 1.7 times bigger */
+  font-size: calc(10px + 1.7vmin); 
   color: white;
   position: relative;
   z-index: 2;
@@ -62,24 +62,20 @@ a {
 .profile-header img {
   border-radius: 50%;
   margin-right: 20px;
-  width: 125px; /* 2.5x bigger than the previous 50px */
-  height: 125px; /* 2.5x bigger than the previous 50px */
+  width: 125px; 
+  height: 125px; 
   object-fit: cover;
 }
 
 .username {
-  font-size: 1.275em; /* 1.7x bigger text size */
+  font-size: 1.275em; 
   font-weight: bold;
   margin: 0;
   text-shadow: 0 0 8px rgba(0, 0, 0, 0.8); /* Black glow effect */
 }
 
-/* App.css */
-
-/* Your existing styles remain the same */
-
 .bio-text {
-  font-size: 0.9em; /* 10% smaller than the previous size */
+  font-size: 0.9em; 
   margin: 0;
   display: inline-block;
   overflow: hidden; /* Hide overflow to prevent cursor from moving text */
@@ -107,7 +103,7 @@ a {
   left: 0;
   width: 100%; /* Set width to 100% of the viewport */
   height: 100%; /* Set height to 100% of the viewport */
-  object-fit: cover; /* Ensure the video covers the entire container without stretching */
+  object-fit: cover; 
   z-index: 1;
   overflow: hidden;
 }
