@@ -4,10 +4,10 @@
   text-align: center;
   position: relative;
   overflow: hidden;
-  cursor: url('/home/ubuntu/parkn.xyz/frontend/public/cursor.cur'), auto; /* Ensure this path is correct */
+  /* cursor: url('/home/ubuntu/parkn.xyz/frontend/public/cursor.cur'), auto; /* Ensure this path is correct */
 }
 a {
-  cursor: url('/home/ubuntu/parkn.xyz/frontend/public/cursor.cur'), auto !important; /* Ensure links also use the custom cursor */
+ /* cursor: url('/home/ubuntu/parkn.xyz/frontend/public/cursor.cur'), auto !important; /* Ensure links also use the custom cursor */
 }
 
 .enter-screen {
