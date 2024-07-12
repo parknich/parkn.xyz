@@ -95,7 +95,7 @@ function App() {
           click to enter
         </div>
       )}
-      <video className="background-video" autoPlay loop onLoadedData={handleVideoLoad}>
+      <video className="background-video" autoPlay loop preload="auto" onLoadedData={handleVideoLoad}>
         <source src="/bg2.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
