@@ -1,3 +1,5 @@
+// App.js
+
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import Particle from './Particle'; // Import the Particle component
@@ -15,25 +17,9 @@ function App() {
   const [charIndex, setCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const [particles, setParticles] = useState([]);
-  const [isLoading, setIsLoading] = useState(true); // State to track if loading is complete
 
   useEffect(() => {
-    const handleLoad = () => {
-      setIsLoading(false); // Set loading to false when content is loaded
-    };
-
-    // Listen for DOMContentLoaded and load events to determine when content is loaded
-    document.addEventListener('DOMContentLoaded', handleLoad);
-    window.addEventListener('load', handleLoad);
-
-    return () => {
-      document.removeEventListener('DOMContentLoaded', handleLoad);
-      window.removeEventListener('load', handleLoad);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!entered || isLoading) return; // Wait until entered and loading is complete
+    if (!entered) return;
 
     const bioTextElement = document.querySelector('.bio-text');
     const currentMessage = bioMessages[bioIndex];
@@ -61,7 +47,7 @@ function App() {
 
     const interval = setInterval(type, isDeleting ? backspaceSpeed : typingSpeed);
     return () => clearInterval(interval);
-  }, [entered, bioIndex, charIndex, isDeleting, bioMessages, isLoading]);
+  }, [entered, bioIndex, charIndex, isDeleting, bioMessages]);
 
   const handleEnterClick = () => {
     setFadeOut(true);
@@ -89,12 +75,7 @@ function App() {
 
   return (
     <div className="App" onMouseMove={handleMouseMove}>
-      {isLoading && (
-        <div className={`enter-screen ${fadeOut ? 'hidden' : ''}`} style={{ backgroundColor: 'black' }}>
-          Loading...
-        </div>
-      )}
-      {!entered && !isLoading && (
+      {!entered && (
         <div
           className={`enter-screen ${fadeOut ? 'hidden' : ''}`}
           style={{ opacity: fadeOut ? 0 : 1 }}
