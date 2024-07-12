@@ -1,5 +1,3 @@
-// App.js
-
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import Particle from './Particle'; // Import the Particle component
@@ -17,10 +15,25 @@ function App() {
   const [charIndex, setCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const [particles, setParticles] = useState([]);
-  const [loading, setLoading] = useState(true); // State to manage loading screen
+  const [isLoading, setIsLoading] = useState(true); // State to track if loading is complete
 
   useEffect(() => {
-    if (!entered) return;
+    const handleLoad = () => {
+      setIsLoading(false); // Set loading to false when content is loaded
+    };
+
+    // Listen for DOMContentLoaded and load events to determine when content is loaded
+    document.addEventListener('DOMContentLoaded', handleLoad);
+    window.addEventListener('load', handleLoad);
+
+    return () => {
+      document.removeEventListener('DOMContentLoaded', handleLoad);
+      window.removeEventListener('load', handleLoad);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!entered || isLoading) return; // Wait until entered and loading is complete
 
     const bioTextElement = document.querySelector('.bio-text');
     const currentMessage = bioMessages[bioIndex];
@@ -33,20 +46,12 @@ function App() {
       if (!isDeleting && charIndex < currentMessage.length) {
         bioTextElement.textContent = currentMessage.substring(0, charIndex + 1);
         setCharIndex((prev) => prev + 1);
-        console.log("setCharIndex((prev) => prev + 1);")
-        console.log(bioIndex)
       } else if (!isDeleting && charIndex === currentMessage.length) {
         setTimeout(() => setIsDeleting(true), pauseBeforeDeleting);
-        console.log(bioIndex)
-        console.log("setTimeout(() => setIsDeleting(true), pauseBeforeDeleting);")
       } else if (isDeleting && charIndex > 0) {
-        console.log("setCharIndex((prev) => prev - 1);")
-        console.log(bioIndex)
         bioTextElement.textContent = currentMessage.substring(0, charIndex - 1);
         setCharIndex((prev) => prev - 1);
       } else if (isDeleting && charIndex === 0) {
-        console.log("setIsDeleting to false & setBioIndex((prev) => (prev + 1) % bioMessages.length);")
-        console.log(bioIndex)
         setTimeout(() => {
           setIsDeleting(false);
           setBioIndex((prev) => (prev + 1) % bioMessages.length);
@@ -56,7 +61,7 @@ function App() {
 
     const interval = setInterval(type, isDeleting ? backspaceSpeed : typingSpeed);
     return () => clearInterval(interval);
-  }, [entered, bioIndex, charIndex, isDeleting, bioMessages]);
+  }, [entered, bioIndex, charIndex, isDeleting, bioMessages, isLoading]);
 
   const handleEnterClick = () => {
     setFadeOut(true);
@@ -82,19 +87,14 @@ function App() {
     { name: 'Reddit', icon: '/reddit-icon.svg', url: 'https://www.reddit.com/u/parknich081' },
   ];
 
-  const handleVideoLoad = () => {
-    setLoading(false); // Set loading to false when video is loaded
-  };
-
   return (
     <div className="App" onMouseMove={handleMouseMove}>
-      {loading && (
-        <div className="loading-screen">
-          <div className="loading-spinner"></div>
-          <p>Loading...</p>
+      {isLoading && (
+        <div className={`enter-screen ${fadeOut ? 'hidden' : ''}`} style={{ backgroundColor: 'black' }}>
+          Loading...
         </div>
       )}
-      {!loading && !entered && (
+      {!entered && !isLoading && (
         <div
           className={`enter-screen ${fadeOut ? 'hidden' : ''}`}
           style={{ opacity: fadeOut ? 0 : 1 }}
@@ -103,7 +103,7 @@ function App() {
           click to enter
         </div>
       )}
-      <video className="background-video" autoPlay loop preload="auto" onLoadedData={handleVideoLoad}>
+      <video className="background-video" autoPlay loop>
         <source src="/bg2.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
