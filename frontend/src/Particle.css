@@ -1,0 +1,24 @@
+/* Particle.css */
+
+.particle {
+    position: fixed;
+    width: 6px; /* Adjust particle size */
+    height: 6px; /* Adjust particle size */
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1000;
+    animation: particle-fall 1s ease-out forwards;
+  }
+  
+  @keyframes particle-fall {
+    0% {
+      opacity: 1;
+      transform: translateY(0) translateX(-50%); /* Start particles slightly left */
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(50px) translateX(50%); /* End particles further right */
+    }
+  }
+  
