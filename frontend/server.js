@@ -23,7 +23,7 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-    res.send('Hello World!');
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
 // Create HTTPS server
