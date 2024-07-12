@@ -1,4 +1,4 @@
-// App.jsx
+// App.js
 
 import React, { useState, useEffect } from 'react';
 import './App.css';
@@ -17,6 +17,7 @@ function App() {
   const [charIndex, setCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const [particles, setParticles] = useState([]);
+  const [loading, setLoading] = useState(true); // State to manage loading screen
 
   useEffect(() => {
     if (!entered) return;
@@ -73,9 +74,19 @@ function App() {
     { name: 'Reddit', icon: '/reddit-icon.svg', url: 'https://www.reddit.com/u/parknich081' },
   ];
 
+  const handleVideoLoad = () => {
+    setLoading(false); // Set loading to false when video is loaded
+  };
+
   return (
     <div className="App" onMouseMove={handleMouseMove}>
-      {!entered && (
+      {loading && (
+        <div className="loading-screen">
+          <div className="loading-spinner"></div>
+          <p>Loading...</p>
+        </div>
+      )}
+      {!loading && !entered && (
         <div
           className={`enter-screen ${fadeOut ? 'hidden' : ''}`}
           style={{ opacity: fadeOut ? 0 : 1 }}
@@ -84,7 +95,7 @@ function App() {
           click to enter
         </div>
       )}
-      <video className="background-video" autoPlay loop>
+      <video className="background-video" autoPlay loop onLoadedData={handleVideoLoad}>
         <source src="/bg2.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
