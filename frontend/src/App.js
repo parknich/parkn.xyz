@@ -33,12 +33,20 @@ function App() {
       if (!isDeleting && charIndex < currentMessage.length) {
         bioTextElement.textContent = currentMessage.substring(0, charIndex + 1);
         setCharIndex((prev) => prev + 1);
+        console.log("setCharIndex((prev) => prev + 1);")
+        console.log(bioIndex)
       } else if (!isDeleting && charIndex === currentMessage.length) {
         setTimeout(() => setIsDeleting(true), pauseBeforeDeleting);
+        console.log(bioIndex)
+        console.log("setTimeout(() => setIsDeleting(true), pauseBeforeDeleting);")
       } else if (isDeleting && charIndex > 0) {
+        console.log("setCharIndex((prev) => prev - 1);")
+        console.log(bioIndex)
         bioTextElement.textContent = currentMessage.substring(0, charIndex - 1);
         setCharIndex((prev) => prev - 1);
       } else if (isDeleting && charIndex === 0) {
+        console.log("setIsDeleting to false & setBioIndex((prev) => (prev + 1) % bioMessages.length);")
+        console.log(bioIndex)
         setTimeout(() => {
           setIsDeleting(false);
           setBioIndex((prev) => (prev + 1) % bioMessages.length);
