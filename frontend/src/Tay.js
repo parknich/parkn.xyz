@@ -66,7 +66,8 @@ function Tay() {
     { name: 'Discord', icon: '/discord-icon.png', url: 'https://discord.gg/2UH5dYZck3' },
     { name: 'Roblox', icon: '/roblox-icon.svg', url: 'https://www.roblox.com/users/477601761/profile' },
     { name: 'NameMC', icon: '/namemc-icon.png', url: 'https://namemc.com/profile/MystixMew.1' },
-    { name: 'Steam', icon: '/steam-icon.png', url: 'https://steamcommunity.com/id/nukashine/'}
+    { name: 'Steam', icon: '/steam-icon.png', url: 'https://steamcommunity.com/id/nukashine/'},
+    { name: 'Website', icon: '/website-icon.png', url: 'https://tay.is-a.dev/'}
   ];
 
   const handleVideoLoad = () => {
