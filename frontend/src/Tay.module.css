@@ -1,0 +1,174 @@
+/* Tay.module.css */
+
+.Tay {
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  cursor: url('https://parkn.xyz/cursor.cur'), auto;
+}
+
+.link {
+  cursor: url('https://parkn.xyz/cursor.cur'), auto !important;
+}
+
+.enterScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 4;
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+  cursor: url('https://parkn.xyz/cursor.cur'), auto !important;
+}
+
+.AppHeader {
+  background-color: transparent;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 1.7vmin);
+  color: white;
+  position: relative;
+  z-index: 3;
+}
+
+.bioBox {
+  background-color: rgba(255, 150, 180, 1);
+  color: black;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 800px;
+  width: 630px;
+  margin: 20px;
+  z-index: 4;
+  position: absolute;
+  text-align: left;
+}
+
+.profileHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.profileImage {
+  border-radius: 50%;
+  margin-right: 20px;
+  width: 125px;
+  height: 125px;
+  object-fit: cover;
+}
+
+.username {
+  font-size: 1.275em;
+  font-weight: bold;
+  margin: 0;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+}
+
+.bioText {
+  font-size: 0.9em;
+  margin: 0;
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  color: black;
+}
+
+.bioText::after {
+  content: '|';
+  animation: blink-caret 0.75s step-end infinite;
+  color: black;
+  font-size: 1.1em;
+}
+
+@keyframes blink-caret {
+  from, to { color: transparent; }
+  50% { color: black; }
+}
+
+.backgroundVideo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.profileLinks {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.profileLink {
+  margin: 0 3px;
+}
+
+.profileLinkIcon {
+  height: 40px;
+}
+
+.profileLinkIcon:hover {
+  transform: scale(1.1);
+}
+
+.discordIcon {
+  height: 40px;
+}
+
+.robloxIcon {
+  height: 60px;
+}
+
+.youtubeIcon {
+  height: 45px;
+}
+
+.loadingScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+  font-size: 1.5em;
+}
+
+.loadingScreenText {
+  color: white;
+}
+
+.loadingSpinner {
+  border: 8px solid rgba(255, 255, 255, 0.2);
+  border-top: 8px solid white;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin-right: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

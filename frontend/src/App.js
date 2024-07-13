@@ -1,8 +1,10 @@
 // App.js
 
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Particle from './Particle'; // Import the Particle component
+import Tay from './Tay';
 
 function App() {
   const [entered, setEntered] = useState(false);
@@ -12,11 +14,12 @@ function App() {
     "Moderator @ Extralife.gg",
     "Fullstack Web Developer",
     "Experience in many languages",
-    "Fuck guns.lol"
+    "Fuck guns.lol",
   ]);
   const [charIndex, setCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const [particles, setParticles] = useState([]);
+  const [loading, setLoading] = useState(true); // State to manage loading screen
 
   useEffect(() => {
     if (!entered) return;
@@ -53,7 +56,7 @@ function App() {
     setFadeOut(true);
     setTimeout(() => {
       setEntered(true);
-      document.getElementById('background-audio').play();
+      document.getElementById('background-video').play();
     }, 500); // Match this duration with the CSS transition duration
   };
 
@@ -73,52 +76,69 @@ function App() {
     { name: 'Reddit', icon: '/reddit-icon.svg', url: 'https://www.reddit.com/u/parknich081' },
   ];
 
+  const handleVideoLoad = () => {
+    setLoading(false); // Set loading to false when video is loaded
+  };
+
   return (
-    <div className="App" onMouseMove={handleMouseMove}>
-      {!entered && (
-        <div
-          className={`enter-screen ${fadeOut ? 'hidden' : ''}`}
-          style={{ opacity: fadeOut ? 0 : 1 }}
-          onClick={handleEnterClick}
-        >
-          click to enter
-        </div>
-      )}
-      <video className="background-video" autoPlay loop>
-        <source src="/bg2.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-      <audio id="background-audio" muted>
-        <source src="/bg2.mp3" type="audio/mp3" />
-        Your browser does not support the audio element.
-      </audio>
-      {(entered || fadeOut) && (
-        <header className="App-header">
-          <div className="bio-box">
-            <div className="profile-header">
-              <img src="/pfp2.png" alt="Profile" />
-              <div>
-                <div className="username">park</div>
-                <div className="bio-text"></div>
+    <Router>
+      <Routes>
+        <Route path="/" element={
+          <div className="App" onMouseMove={handleMouseMove}>
+            {loading && (
+              <div className="loading-screen">
+                <div className="loading-spinner"></div>
+                <p>Loading...</p>
               </div>
-            </div>
-            <div className="profile-links">
-              {profileLinks.map((link, index) => (
-                <div className={`profile-link ${link.name.toLowerCase()}`} key={index}>
-                  <a href={link.url} target="_blank" rel="noopener noreferrer">
-                    <img src={link.icon} alt={link.name} className={`profile-link-icon ${link.name.toLowerCase()}`} />
-                  </a>
+            )}
+            {!loading && !entered && (
+              <div
+                className={`enter-screen ${fadeOut ? 'hidden' : ''}`}
+                style={{ opacity: fadeOut ? 0 : 1 }}
+                onClick={handleEnterClick}
+              >
+                click to enter
+              </div>
+            )}
+            <video className="background-video" id='background-video' autoPlay loop preload="auto" onLoadedData={handleVideoLoad}>
+              <source src="/bg2.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            <audio id="background-audio" muted>
+              <source src="/bg2.mp3" type="audio/mp3" />
+              Your browser does not support the audio element.
+            </audio>
+            {(entered || fadeOut) && (
+              <header className="App-header">
+                <div className="bio-box">
+                  <div className="profile-header">
+                    <img src="/pfp2.png" alt="Profile" />
+                    <div>
+                      <div className="username">park</div>
+                      <div className="bio-text"></div>
+                    </div>
+                  </div>
+                  <div className="profile-links">
+                    {profileLinks.map((link, index) => (
+                      <div className={`profile-link ${link.name.toLowerCase()}`} key={index}>
+                        <a href={link.url} target="_blank" rel="noopener noreferrer">
+                          <img src={link.icon} alt={link.name} className={`profile-link-icon ${link.name.toLowerCase()}`} />
+                        </a>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              ))}
-            </div>
+              </header>
+            )}
+            {/* Render particles */}
+            {particles.map((particle) => (
+              <Particle key={particle.id} x={particle.x} y={particle.y} />
+            ))}
           </div>
-        </header>
-      )}
-      {/* Render particles */}
-      {particles.map((particle) => (
-        <Particle key={particle.id} x={particle.x} y={particle.y} />
-      ))}
-    </div>
+        } />
+        <Route path="/tay" element={<Tay />} />
+      </Routes>
+    </Router>
   );
 }
 
