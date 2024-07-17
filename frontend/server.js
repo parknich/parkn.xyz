@@ -32,6 +32,6 @@ http.createServer((req, res) => {
 }).listen(HTTP_PORT, () => {
     console.log(`HTTP Server is running on port ${HTTP_PORT} and redirecting to HTTPS`);
 });
-app.listen(PORT, () => {
+app.listen(HTTPS_PORT, () => {
     console.log(`Server is running on port ${HTTPS_PORT}`);
 });
