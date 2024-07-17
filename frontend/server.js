@@ -8,13 +8,11 @@ const app = express();
 const HTTPS_PORT = 443;
 const HTTP_PORT = 80;
 
-// Paths to the SSL certificate and key
 const options = {
     key: fs.readFileSync('/etc/letsencrypt/live/parknich.xyz/privkey.pem'),
     cert: fs.readFileSync('/etc/letsencrypt/live/parknich.xyz/fullchain.pem')
 };
 
-// Middleware to redirect HTTP to HTTPS
 app.use((req, res, next) => {
     if (!req.secure) {
         return res.redirect(`https://${req.headers.host}${req.url}`);
@@ -24,16 +22,10 @@ app.use((req, res, next) => {
 
 app.use(express.static(path.join(__dirname, 'build')));
 
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
-
-// Create HTTPS server
 https.createServer(options, app).listen(HTTPS_PORT, () => {
     console.log(`HTTPS Server is running on port ${HTTPS_PORT}`);
 });
 
-// Create HTTP server that redirects to HTTPS
 http.createServer((req, res) => {
     res.writeHead(301, { Location: `https://${req.headers.host}${req.url}` });
     res.end();

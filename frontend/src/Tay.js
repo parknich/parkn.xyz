@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Tay.module.css';
 import Particle from './Particle'; // Import the Particle component
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 
 function Tay() {
   const [entered, setEntered] = useState(false);
