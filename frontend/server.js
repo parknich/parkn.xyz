@@ -4,12 +4,7 @@ const path = require('path');
 const app = express();
 const PORT =  3000
 
-//app.use(express.static(path.join(__dirname, 'build')));
-
-app.get("/", (req,res, next)=>{
-    res.send("hello world")
-    }
-)
+app.use(express.static(path.join(__dirname, 'build')));
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
