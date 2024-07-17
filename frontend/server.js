@@ -7,6 +7,7 @@ const path = require('path');
 const app = express();
 const HTTPS_PORT = 443;
 const HTTP_PORT = 80;
+const PORT =  421
 
 const options = {
     key: fs.readFileSync('/etc/letsencrypt/live/parknich.xyz/privkey.pem'),
@@ -32,6 +33,6 @@ http.createServer((req, res) => {
 }).listen(HTTP_PORT, () => {
     console.log(`HTTP Server is running on port ${HTTP_PORT} and redirecting to HTTPS`);
 });
-app.listen(HTTPS_PORT, () => {
-    console.log(`Server is running on port ${HTTPS_PORT}`);
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
