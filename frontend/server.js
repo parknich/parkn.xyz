@@ -26,13 +26,6 @@ app.use(express.static(path.join(__dirname, 'build')));
 https.createServer(options, app).listen(HTTPS_PORT, () => {
     console.log(`HTTPS Server is running on port ${HTTPS_PORT}`);
 });
-
-http.createServer((req, res) => {
-    res.writeHead(301, { Location: `https://${req.headers.host}${req.url}` });
-    res.end();
-}).listen(HTTP_PORT, () => {
-    console.log(`HTTP Server is running on port ${HTTP_PORT} and redirecting to HTTPS`);
-});
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
