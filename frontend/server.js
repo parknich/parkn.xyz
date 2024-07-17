@@ -1,12 +1,10 @@
 const express = require('express');
 const https = require('https');
-const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
 const app = express();
 const HTTPS_PORT = 443;
-const HTTP_PORT = 80;
 const PORT =  421
 
 const options = {
