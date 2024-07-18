@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, json } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
-import Particle from './Particle'; // Import the Particle component
+import Particle from './Particle';
 import Tay from './Tay';
 
 function App() {
@@ -17,90 +17,61 @@ function App() {
   const [charIndex, setCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const [particles, setParticles] = useState([]);
-  const [loading, setLoading] = useState(true); // State to manage loading screen
-  let discordStuffGot = false;
-  let jsonObjectGuild;
-  const discordInviteId = "KA6aTRcbXD"
-  const discordInvite = `discord.gg/${discordInviteId}`
-  let discordGuildId;
-  let discordName;
-  let discordIconHash;
-  let discordIcon;
-  let discordMembers;
-  let discordOnlineMembers;
-  let response;
-  function getDiscordStuff() {
-    if (!discordStuffGot) {
-      discordStuffGot = true; // Set the flag to true immediately to prevent further requests
-  
-      fetch(`https://discord.com/api/v8/invites/${discordInviteId}?with_counts=true`)
-        .then((response) => response.json())
-        .then((json) => {
-          // Accessing the properties within the then block
-          jsonObjectGuild = json.guild;
-          discordGuildId = jsonObjectGuild.id;
-          discordName = jsonObjectGuild.name;
-          discordIconHash = jsonObjectGuild.icon;
-          discordIcon = `https://cdn.discordapp.com/icons/${discordGuildId}/${discordIconHash}.png`;
-          discordMembers = json.approximate_member_count;
-          discordOnlineMembers = json.approximate_presence_count;
-  
-          // Log the results
-          console.log("Guild ID:", discordGuildId);
-          console.log("Guild Name:", discordName);
-          console.log("Guild Icon URL:", discordIcon);
-          console.log("Member Count:", discordMembers);
-          console.log("Online Member Count:", discordOnlineMembers);
-        })
-        .catch((error) => {
-          console.error('Error:', error);
+  const [loading, setLoading] = useState(true);
+  const [discordInfo, setDiscordInfo] = useState({
+    name: "Failed to fetch server info",
+    onlineMembers: "?",
+    members: "?",
+    icon: "",
+  });
+
+  const discordInviteId = "KA6aTRcbXD";
+  const discordInvite = `discord.gg/${discordInviteId}`;
+
+  useEffect(() => {
+    fetchDiscordInfo(); // Fetch Discord server info on component mount
+  }, []);
+
+  const fetchDiscordInfo = () => {
+    fetch(`https://discord.com/api/v8/invites/${discordInviteId}?with_counts=true`)
+      .then((response) => response.json())
+      .then((json) => {
+        const guild = json.guild;
+        const discordGuildId = guild.id;
+        const discordName = guild.name;
+        const discordIconHash = guild.icon;
+        const discordIcon = `https://cdn.discordapp.com/icons/${discordGuildId}/${discordIconHash}.png`;
+        const discordMembers = json.approximate_member_count;
+        const discordOnlineMembers = json.approximate_presence_count;
+
+        setDiscordInfo({
+          name: discordName,
+          onlineMembers: discordOnlineMembers,
+          members: discordMembers,
+          icon: discordIcon,
         });
-    }
-  }
-  useEffect(() => {
-    getDiscordStuff(); // Call the function only once when the component mounts
-  }, [])
-  useEffect(() => {
-    if (!entered) return;
 
-    const bioTextElement = document.querySelector('.bio-text');
-    const currentMessage = bioMessages[bioIndex];
-    const typingSpeed = 100; // the milliseconds between each character when typing
-    const backspaceSpeed = 50; // the milliseconds between each character when backspacing
-    const pauseBeforeTyping = 500; // pause before starting to type after backspacing finished
-    const pauseBeforeDeleting = 1000; // pause before starting to backspace
-    
-    const type = () => {
-      if (!isDeleting && charIndex < currentMessage.length) {
-        bioTextElement.textContent = currentMessage.substring(0, charIndex + 1);
-        setCharIndex((prev) => prev + 1);
-      } else if (!isDeleting && charIndex === currentMessage.length) {
-        setTimeout(() => setIsDeleting(true), pauseBeforeDeleting);
-      } else if (isDeleting && charIndex > 0) {
-        bioTextElement.textContent = currentMessage.substring(0, charIndex - 1);
-        setCharIndex((prev) => prev - 1);
-      } else if (isDeleting && charIndex === 0) {
-        setTimeout(() => {
-          setIsDeleting(false);
-          setBioIndex((prev) => (prev + 1) % bioMessages.length);
-        }, pauseBeforeTyping);
-      }
-    };
-
-    const interval = setInterval(type, isDeleting ? backspaceSpeed : typingSpeed);
-    return () => clearInterval(interval);
-  }, [entered, bioIndex, charIndex, isDeleting, bioMessages]);
+        console.log("Guild ID:", discordGuildId);
+        console.log("Guild Name:", discordName);
+        console.log("Guild Icon URL:", discordIcon);
+        console.log("Member Count:", discordMembers);
+        console.log("Online Member Count:", discordOnlineMembers);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  };
 
   const handleEnterClick = () => {
     setFadeOut(true);
     setTimeout(() => {
       setEntered(true);
       document.getElementById('background-video').play();
-    }, 500); // Match this duration with the CSS transition duration
+    }, 500);
   };
 
   const handleMouseMove = (event) => {
-    if (!entered) return; // Only create particles when entered
+    if (!entered) return;
 
     const { clientX, clientY } = event;
     const particle = { id: Date.now(), x: clientX, y: clientY };
@@ -116,8 +87,9 @@ function App() {
   ];
 
   const handleVideoLoad = () => {
-    setLoading(false); // Set loading to false when video is loaded
+    setLoading(false);
   };
+
   return (
     <Router>
       <Routes>
@@ -153,7 +125,7 @@ function App() {
                     <img src="/pfp2.png" alt="Profile" />
                     <div>
                       <div className="username">park</div>
-                      <div className="bio-text"></div>
+                      <div className="bio-text">{bioMessages[bioIndex]}</div>
                     </div>
                   </div>
                   <div className="profile-links">
@@ -168,11 +140,11 @@ function App() {
                   <div className="divider"></div>
                   <div className="discord-invite">
                     <div className="discord-info">
-                      <img className="discord-server-image" src={discordIcon} alt="Icon" />
+                      <img className="discord-server-image" src={discordInfo.icon} alt="Icon" />
                       <div className="discord-text">
-                        <p className="discordName">{discordName || "Failed to fetch server info"}</p>
-                        <p className="discordOnlineMembers">{discordOnlineMembers || "?"} Online</p>
-                        <p className="discordMembers">{discordMembers || "?"} Members</p>
+                        <p className="discordName">{discordInfo.name}</p>
+                        <p className="discordOnlineMembers">{`${discordInfo.onlineMembers} Online`}</p>
+                        <p className="discordMembers">{`${discordInfo.members} Members`}</p>
                       </div>
                     </div>
                     <a className="join-button" href={`https://discord.gg/${discordInviteId}`} target="_blank" rel="noopener noreferrer">Join Server</a>
@@ -180,7 +152,6 @@ function App() {
                 </div>
               </header>
             )}
-            {/* Render particles */}
             {particles.map((particle) => (
               <Particle key={particle.id} x={particle.x} y={particle.y} />
             ))}
