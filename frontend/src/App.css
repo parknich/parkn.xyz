@@ -45,7 +45,7 @@ a {
 }
 
 .bio-box {
-  background-color: rgba(82, 82, 82, 0.8); /* Pink with 80% opacity */
+  background-color: rgba(82, 82, 82, 0.8);
   color: black;
   padding: 20px;
   border-radius: 10px;
@@ -56,7 +56,104 @@ a {
   position: relative;
   text-align: left;
   overflow: hidden;
+  border: 2px solid black; /* Changed border color to black */
 }
+
+
+.discord-invite {
+  background-color: rgba(59, 57, 57, 0.8);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 470px;
+  width: 100%; /* Ensure full width */
+  margin: 20px auto; /* Center align and add margin */
+  z-index: 3;
+  position: relative;
+  text-align: left;
+  overflow: hidden;
+  display: flex;
+  align-items: center; /* Center vertically */
+  justify-content: space-between; /* Space between items */
+  border: 2px solid black; /* Changed border color to black */
+}
+
+.discord-info {
+  display: flex;
+  align-items: center;
+  width: 100%; /* Take up full width */
+  margin-bottom: 10px; /* Spacing between discord-info and button */
+}
+
+.discord-text {
+  flex: 1; /* Take up remaining space */
+  overflow: hidden;
+}
+
+
+.discord-invite .discordOnlineMembers,
+.discord-invite .discordMembers {
+  font-size: 0.4em;
+  max-width: 300px; /* Adjust max-width to prevent overflow */
+  white-space: nowrap; /* Prevent text from wrapping */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Show ellipsis (...) for overflow text */
+}
+
+
+.discord-invite .discordName {
+  font-weight: bold;
+  font-size: 0.6em;
+  overflow: visible; /* Show full content */
+  text-overflow: unset; /* Disable ellipsis */
+  white-space: nowrap;
+}
+
+.join-button {
+  background-color: #7289da; /* Discord blue */
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  position: relative;
+  font-size:0.6em;
+  text-decoration: none;
+  text-align: center;
+  display: inline-block;
+  overflow: visible;
+  margin-left: 20px; /* Add spacing between info and button */
+  border: 2px solid #5f73bc
+}
+
+
+.join-button:hover {
+  background-color: #5f73bc; /* Darker shade of Discord blue */
+}
+.divider {
+  height: 2px; /* Height of the divider */
+  width: 100%; /* Full width */
+  background-color: black; /* Divider color */
+  margin: 20px 0; /* Margin for spacing */
+  border-radius: 1px; /* Adjust radius for rounded appearance */
+}
+  
+
+.discord-invite .discord-server-image {
+  width: 50px; /* Adjust size of Discord server image */
+  height: 50px;
+  border-radius: 8px; /* Rounded corners for server image */
+  margin-right: 20px;
+}
+
+
+.discord-invite p {
+  margin: 0;
+  font-size: 1em;
+  line-height: 1.5;
+  white-space: nowrap; /* Prevent text wrapping */
+  overflow: hidden; /* Hide overflow text */
+  text-overflow: ellipsis; /* Show ellipsis (...) for overflow text */
+}
+
 
 .profile-header {
   display: flex;

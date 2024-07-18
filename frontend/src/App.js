@@ -1,7 +1,5 @@
-// App.js
-
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, json } from 'react-router-dom';
 import './App.css';
 import Particle from './Particle'; // Import the Particle component
 import Tay from './Tay';
@@ -20,7 +18,48 @@ function App() {
   const [isDeleting, setIsDeleting] = useState(false);
   const [particles, setParticles] = useState([]);
   const [loading, setLoading] = useState(true); // State to manage loading screen
-
+  let discordStuffGot = false;
+  let jsonObjectGuild;
+  const discordInviteId = "KA6aTRcbXD"
+  const discordInvite = `discord.gg/${discordInviteId}`
+  let discordGuildId;
+  let discordName;
+  let discordIconHash;
+  let discordIcon;
+  let discordMembers;
+  let discordOnlineMembers;
+  let response;
+  function getDiscordStuff() {
+    if (!discordStuffGot) {
+      discordStuffGot = true; // Set the flag to true immediately to prevent further requests
+  
+      fetch(`https://discord.com/api/v8/invites/${discordInvite}?with_counts=true`)
+        .then((response) => response.json())
+        .then((json) => {
+          // Accessing the properties within the then block
+          jsonObjectGuild = json.guild;
+          discordGuildId = jsonObjectGuild.id;
+          discordName = jsonObjectGuild.name;
+          discordIconHash = jsonObjectGuild.icon;
+          discordIcon = `https://cdn.discordapp.com/icons/${discordGuildId}/${discordIconHash}.png`;
+          discordMembers = json.approximate_member_count;
+          discordOnlineMembers = json.approximate_presence_count;
+  
+          // Log the results
+          console.log("Guild ID:", discordGuildId);
+          console.log("Guild Name:", discordName);
+          console.log("Guild Icon URL:", discordIcon);
+          console.log("Member Count:", discordMembers);
+          console.log("Online Member Count:", discordOnlineMembers);
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+    }
+  }
+  useEffect(() => {
+    getDiscordStuff(); // Call the function only once when the component mounts
+  }, [])
   useEffect(() => {
     if (!entered) return;
 
@@ -30,7 +69,7 @@ function App() {
     const backspaceSpeed = 50; // the milliseconds between each character when backspacing
     const pauseBeforeTyping = 500; // pause before starting to type after backspacing finished
     const pauseBeforeDeleting = 1000; // pause before starting to backspace
-
+    
     const type = () => {
       if (!isDeleting && charIndex < currentMessage.length) {
         bioTextElement.textContent = currentMessage.substring(0, charIndex + 1);
@@ -79,7 +118,6 @@ function App() {
   const handleVideoLoad = () => {
     setLoading(false); // Set loading to false when video is loaded
   };
-
   return (
     <Router>
       <Routes>
@@ -126,6 +164,18 @@ function App() {
                         </a>
                       </div>
                     ))}
+                  </div>
+                  <div className="divider"></div>
+                  <div className="discord-invite">
+                    <div className="discord-info">
+                      <img className="discord-server-image" src={discordIcon} alt="Icon" />
+                      <div className="discord-text">
+                        <p className="discordName">{discordName || "Failed to fetch server info"}</p>
+                        <p className="discordOnlineMembers">{discordOnlineMembers || "?"} Online</p>
+                        <p className="discordMembers">{discordMembers || "?"} Members</p>
+                      </div>
+                    </div>
+                    <a className="join-button" href={`https://discord.gg/${discordInviteId}`} target="_blank" rel="noopener noreferrer">Join Server</a>
                   </div>
                 </div>
               </header>
