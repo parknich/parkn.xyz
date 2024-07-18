@@ -33,7 +33,7 @@ function App() {
     if (!discordStuffGot) {
       discordStuffGot = true; // Set the flag to true immediately to prevent further requests
   
-      fetch(`https://discord.com/api/v8/invites/${discordInvite}?with_counts=true`)
+      fetch(`https://discord.com/api/v8/invites/${discordInviteId}?with_counts=true`)
         .then((response) => response.json())
         .then((json) => {
           // Accessing the properties within the then block
