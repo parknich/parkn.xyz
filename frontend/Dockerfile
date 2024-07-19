@@ -31,4 +31,4 @@ RUN wget -O build/bg2.mp4 https://files.catbox.moe/xjsz9u.mp4
 EXPOSE 3000
 
 # Define the command to run the app
-CMD ["node", "server.js"]
+CMD ["npm", "start"]
