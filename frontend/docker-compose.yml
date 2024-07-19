@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.web.rule=Host(`parknich.xyz`)"
+      - "traefik.http.routers.web.entrypoints=web"
+      - "traefik.http.services.web.loadbalancer.server.port=3000"
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    environment:
+      - NODE_ENV=production
+
+networks:
+  default:
+    external:
+      name: traefik

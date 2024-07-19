@@ -1,6 +1,11 @@
 # Use an official Node.js runtime as a parent image
 FROM node:14-alpine
 
+# Add labels
+LABEL maintainer="parknich081@gmail.com"
+LABEL version="1.0"
+LABEL description="This is a Docker image for a Create-React-App project."
+
 # Set the working directory inside the container
 WORKDIR /app
 
@@ -26,4 +31,4 @@ RUN wget -O build/bg2.mp4 https://files.catbox.moe/xjsz9u.mp4
 EXPOSE 3000
 
 # Define the command to run the app
-CMD ["sudo", "node", "server.js"]
+CMD ["npm", "start"]
