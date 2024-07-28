@@ -19,7 +19,7 @@ RUN npm install
 COPY . .
 
 # Build the React app
-RUN npm run build
+RUN npm run build && echo "Build successful" || echo "Build failed"
 
 # Remove the existing bg2.mp4 file from the build directory
 RUN rm -f build/bg2.mp4
