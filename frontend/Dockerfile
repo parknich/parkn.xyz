@@ -27,6 +27,13 @@ RUN rm -f build/bg2.mp4
 # Download the new bg2.mp4 file
 RUN wget -O build/bg2.mp4 https://files.catbox.moe/xjsz9u.mp4
 
+# Remove the existing taybg.mp4 file from the build directory
+RUN rm -f build/taybg.mp4
+
+# Download the new taybg.mp4 file
+RUN wget -O build/taybg.mp4 https://files.catbox.moe/esnriy.mp4
+
+
 # Expose the port the app runs on
 EXPOSE 3000
 

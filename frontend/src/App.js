@@ -9,7 +9,7 @@ function App() {
   const [fadeOut, setFadeOut] = useState(false);
   const [bioIndex, setBioIndex] = useState(0);
   const [bioMessages] = useState([
-    "Moderator @ Extralife.gg",
+    "SMO Player",
     "Fullstack Web Developer",
     "Experience in many languages",
     "Fuck guns.lol",
