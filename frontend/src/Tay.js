@@ -78,6 +78,8 @@ function Tay() {
 
   return (
     <div className={styles.Tay} onMouseMove={handleMouseMove}>
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9394690619698484"
+     crossorigin="anonymous"></script>
       {loading && (
         <div className={styles.loadingScreen}>
           <div className={styles.loadingSpinner}></div>
