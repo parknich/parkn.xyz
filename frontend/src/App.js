@@ -128,6 +128,8 @@ function App() {
       <Routes>
         <Route path="/" element={
           <div className="App" onMouseMove={handleMouseMove}>
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9394690619698484"
+            crossorigin="anonymous"></script>
             {loading && (
               <div className="loading-screen">
                 <div className="loading-spinner"></div>
