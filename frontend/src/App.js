@@ -9,9 +9,9 @@ function App() {
   const [fadeOut, setFadeOut] = useState(false);
   const [bioIndex, setBioIndex] = useState(0);
   const [bioMessages] = useState([
-    "SMO Player",
-    "Fullstack Web Developer",
-    "Experience in many languages",
+    "Moderator @ SMO Trickjumping",
+    "Trackmania Player",
+    "Dogshit programmer",
     "Fuck guns.lol",
   ]);
   const [charIndex, setCharIndex] = useState(0);
