@@ -213,6 +213,9 @@ function App() {
                     </div>
                     <a className="join-button" href={discordInvite} target="_blank" rel="noopener noreferrer">Join Server</a>
                   </div>
+                  <div className='webad'>
+                    <p>Want a website like this? Contact me on discord or via contact@parknich.xyz</p>
+                  </div>
                 </div>
               </header>
             )}

@@ -62,6 +62,17 @@ a {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.8); /* Black glow */
 }
 
+.webad {
+  font-size: 0.40em; /* Smaller font size */
+  color: #333; /* Dark gray color for better readability */
+  text-align: center; /* Center the text */
+  margin: 10px 0; /* Add some vertical spacing */
+}
+
+.webad p {
+  margin: 0; /* Remove default margin for the paragraph */
+  line-height: 1.4; /* Slightly increase line height for readability */
+}
 
 .discord-invite {
   background-color: rgba(59, 57, 57, 0.8);
