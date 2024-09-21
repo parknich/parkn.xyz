@@ -48,13 +48,6 @@ function App() {
           members: discordMembers,
           onlineMembers: discordOnlineMembers,
         });
-
-        // Log the results
-        console.log("Guild ID:", discordGuildId);
-        console.log("Guild Name:", discordName);
-        console.log("Guild Icon URL:", discordIcon);
-        console.log("Member Count:", discordMembers);
-        console.log("Online Member Count:", discordOnlineMembers);
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -74,7 +67,6 @@ function App() {
     const backspaceSpeed = 50; // the milliseconds between each character when backspacing
     const pauseBeforeTyping = 500; // pause before starting to type after backspacing finished
     const pauseBeforeDeleting = 1000; // pause before starting to backspace
-    
     const type = () => {
       if (!isDeleting && charIndex < currentMessage.length) {
         bioTextElement.textContent = currentMessage.substring(0, charIndex + 1);
@@ -105,25 +97,37 @@ function App() {
   };
   const bioBox = document.querySelector('.bio-box');
   const app = document.querySelector('.App');
+  let tiltTimeout;
+  // Handle mouse movement for tilt and particle effects
   const handleMouseMove = (event) => {
-    if (!entered) return; // Only create particles when entered
+
+    if (!entered) return;
 
     const { clientX, clientY } = event;
     const { left, top, width, height } = bioBox.getBoundingClientRect();
-    
-    const xPos = clientX - (left + width / 2); // Mouse X position relative to the bio-box center
-    const yPos = clientY - (top + height / 2); // Mouse Y position relative to the bio-box center
 
-    const rotateX = (-yPos / height) * 20; // 20 is the max rotation angle for X-axis
-    const rotateY = (xPos / width) * 20;  // 20 is the max rotation angle for Y-axis
+    if (clientX > left && clientX < left + width && clientY > top && clientY < top + height) {
+      const xPos = clientX - (left + width / 2);
+      const yPos = clientY - (top + height / 2);
 
-    // Apply the rotation to the bio-box
-    bioBox.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      const rotateX = (-yPos / height) * 20;
+      const rotateY = (xPos / width) * 20;
+
+      bioBox.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      bioBox.style.transition = 'transform 0.1s'; // Smooth while moving
+      clearTimeout(tiltTimeout);
+    } else {
+      bioBox.style.transition = 'transform 0.3s ease'; // Smooth snap-back
+      bioBox.style.transform = `rotateX(0deg) rotateY(0deg)`;
+
+      tiltTimeout = setTimeout(() => {
+        bioBox.style.transition = ''; // Reset transition after snapping back
+      }, 300);
+    }
 
     const particle = { id: Date.now(), x: clientX, y: clientY };
     setParticles((prevParticles) => [...prevParticles, particle]);
   };
-
   const profileLinks = [
     { name: 'Discord', icon: '/discord-icon.png', url: 'https://discord.com/users/556850704770138114' },
     { name: 'Roblox', icon: '/roblox-icon.svg', url: 'https://www.roblox.com/users/907533511/profile' },
@@ -137,21 +141,16 @@ function App() {
   };
 
   useEffect(() => {
-    const bioBox = document.querySelector('.bio-box');
     const app = document.querySelector('.App');
-  
-    const handleMouseMove = (e) => {
-
-    };
-  
     app.addEventListener('mousemove', handleMouseMove);
-  
+
     return () => {
       // Clean up the event listener when the component unmounts
       app.removeEventListener('mousemove', handleMouseMove);
+      clearTimeout(tiltTimeout);
     };
-  }, []);
-  
+  }, [entered]);
+
 
   return (
     <Router>
