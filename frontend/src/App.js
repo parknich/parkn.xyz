@@ -12,6 +12,7 @@ function App() {
     "Moderator @ SMOTrickjumping",
     "Trackmania Player",
     "Dogshit programmer",
+    "Genderfluid & Bisexual",
     "Fuck guns.lol",
   ]);
   const [charIndex, setCharIndex] = useState(0);
