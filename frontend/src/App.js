@@ -65,6 +65,32 @@ function App() {
   }, []);
 
   useEffect(() => {
+    const bioBox = document.querySelector('.bio-box');
+    const app = document.querySelector('.App');
+  
+    const handleMouseMove = (e) => {
+      const { clientX, clientY } = e;
+      const { left, top, width, height } = bioBox.getBoundingClientRect();
+      
+      const xPos = clientX - (left + width / 2); // Mouse X position relative to the bio-box center
+      const yPos = clientY - (top + height / 2); // Mouse Y position relative to the bio-box center
+  
+      const rotateX = (-yPos / height) * 20; // 20 is the max rotation angle for X-axis
+      const rotateY = (xPos / width) * 20;  // 20 is the max rotation angle for Y-axis
+  
+      // Apply the rotation to the bio-box
+      bioBox.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    };
+  
+    app.addEventListener('mousemove', handleMouseMove);
+  
+    return () => {
+      // Clean up the event listener when the component unmounts
+      app.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
+
+  useEffect(() => {
     if (!entered) return;
 
     const bioTextElement = document.querySelector('.bio-text');

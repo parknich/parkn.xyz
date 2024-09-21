@@ -5,6 +5,8 @@
   position: relative;
   overflow: hidden;
   cursor: url('https://parkn.xyz/cursor.cur'), auto; /* Ensure this path is correct */
+  perspective: 1000px; /* Add perspective for a 3D feel */
+  perspective-origin: center; /* Make sure the perspective is centered */
   /* cursor: url('E:\Projects\Web\parkn.lol\frontend\public\cursor.cur'), auto; */
 }
 
@@ -56,7 +58,9 @@ a {
   position: relative;
   text-align: left;
   overflow: hidden;
-  border: 2px solid black; /* Changed border color to black */
+  border: 2px solid black;
+  transition: transform 0.1s ease-out; /* Smooth transition for the tilt */
+  transform-style: preserve-3d; /* Enable 3D transforms */
 }
 
 
