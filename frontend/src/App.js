@@ -9,7 +9,7 @@ function App() {
   const [fadeOut, setFadeOut] = useState(false);
   const [bioIndex, setBioIndex] = useState(0);
   const [bioMessages] = useState([
-    "Moderator @ SMO Trickjumping",
+    "Moderator @ SMOTrickjumping",
     "Trackmania Player",
     "Dogshit programmer",
     "Fuck guns.lol",
