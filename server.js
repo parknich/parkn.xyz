@@ -1,40 +1,33 @@
 const express = require('express');
-const https = require('https');
-const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
 const app = express();
-const HTTPS_PORT = 443;
-const HTTP_PORT = 80;
+const PORT = 3000;  // Change this to whatever port you want
 
-// Paths to the SSL certificate and key
-const options = {
-    key: fs.readFileSync('/etc/letsencrypt/live/parknich.xyz/privkey.pem'),
-    cert: fs.readFileSync('/etc/letsencrypt/live/parknich.xyz/fullchain.pem')
+// Path to store the view count
+const viewsFilePath = path.join(__dirname, 'views.json');
+
+// Helper function to read and update views
+const updateViews = () => {
+  if (!fs.existsSync(viewsFilePath)) {
+    fs.writeFileSync(viewsFilePath, JSON.stringify({ count: 0 }));
+  }
+
+  const data = JSON.parse(fs.readFileSync(viewsFilePath, 'utf-8'));
+  data.count += 1;
+  fs.writeFileSync(viewsFilePath, JSON.stringify(data));
+
+  return data.count;
 };
 
-// Middleware to redirect HTTP to HTTPS
-app.use((req, res, next) => {
-    if (!req.secure) {
-        return res.redirect(`https://${req.headers.host}${req.url}`);
-    }
-    next();
+// Endpoint to handle views increment
+app.get('/api/views', (req, res) => {
+  const views = updateViews();
+  res.json({ views });
 });
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
-
-// Create HTTPS server
-https.createServer(options, app).listen(HTTPS_PORT, () => {
-    console.log(`HTTPS Server is running on port ${HTTPS_PORT}`);
-});
-
-// Create HTTP server that redirects to HTTPS
-http.createServer((req, res) => {
-    res.writeHead(301, { Location: `https://${req.headers.host}${req.url}` });
-    res.end();
-}).listen(HTTP_PORT, () => {
-    console.log(`HTTP Server is running on port ${HTTP_PORT} and redirecting to HTTPS`);
+// Start the server
+app.listen(PORT, () => {
+  console.log(`View counter API running on http://localhost:${PORT}`);
 });
