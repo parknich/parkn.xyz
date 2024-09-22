@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const app = express();
-const PORT = 3000;  // Change this to whatever port you want
+const PORT = 3001;  // Change this to whatever port you want
 
 // Path to store the view count
 const viewsFilePath = path.join(__dirname, 'views.json');
