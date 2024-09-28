@@ -148,7 +148,7 @@ function App() {
   const profileLinks = [
     {
       name: "Discord",
-      icon: "/discord-icon.png",
+      icon: "/dicsord-icon.png",
       url: "https://discord.com/users/556850704770138114",
     },
     {
