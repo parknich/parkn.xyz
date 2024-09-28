@@ -304,7 +304,6 @@ function App() {
                         contact@parknich.xyz
                       </p>
                     </div>
-                    <ViewCounter></ViewCounter>
                   </div>
                 </header>
               )}
