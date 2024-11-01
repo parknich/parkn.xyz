@@ -11,7 +11,7 @@ function App() {
   const [fadeOut, setFadeOut] = useState(false);
   const [bioIndex, setBioIndex] = useState(0);
   const [bioMessages] = useState([
-    "Moderator @ SMOTrickjumping",
+    "SMO Speedrunner",
     "Trackmania Player",
     "Dogshit programmer",
     "Genderfluid & Bisexual",
