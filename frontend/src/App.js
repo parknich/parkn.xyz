@@ -9,10 +9,13 @@ function App() {
   const [fadeOut, setFadeOut] = useState(false);
   const [bioIndex, setBioIndex] = useState(0);
   const [bioMessages] = useState([
-    "Moderator @ Extralife.gg",
+    "Developer @ ParkHack",
+    "Become a beta tester!",
     "Fullstack Web Developer",
     "Experience in many languages",
-    "Fuck guns.lol",
+    "Bisexual",
+    "she/her",
+
   ]);
   const [charIndex, setCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -26,7 +29,7 @@ function App() {
     onlineMembers: '? Online',
   });
 
-  const discordInviteId = "KA6aTRcbXD";
+  const discordInviteId = "dashSFsk7v";
   const discordInvite = `https://discord.gg/${discordInviteId}`;
 
   function getDiscordStuff() {
